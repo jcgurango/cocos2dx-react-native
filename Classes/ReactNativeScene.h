@@ -26,19 +26,27 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include <map>
+#include <jni.h>
 
-class HelloWorld : public cocos2d::Scene
+class ReactNativeScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
+    static cocos2d::Scene* currentSceneInstance;
+    static cocos2d::Vec2 currentOrigin;
+    static cocos2d::Size currentVisibleSize;
+    static std::map<std::string, Node*> rootNodes;
 
     virtual bool init();
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    
+
+    void update(float dt);
+
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(ReactNativeScene);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

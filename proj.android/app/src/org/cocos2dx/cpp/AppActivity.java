@@ -33,6 +33,7 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import android.os.Build;
 import android.provider.Settings;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
@@ -83,6 +84,7 @@ public class AppActivity extends Cocos2dxActivity implements DefaultHardwareBack
 
         mReactRootView = new ReactRootView(this);
         List<ReactPackage> packages = new PackageList(getApplication()).getPackages();
+        packages.add(new CocosPackage(this));
 
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
@@ -95,7 +97,24 @@ public class AppActivity extends Cocos2dxActivity implements DefaultHardwareBack
                 .build();
 
         mReactRootView.startReactApplication(mReactInstanceManager, "HelloReactNative", null);
-        addContentView(mReactRootView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
+    public void showReact() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                addContentView(mReactRootView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            }
+        });
+    }
+
+    public void hideReact() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((ViewGroup)mReactRootView.getParent()).removeView(mReactRootView);
+            }
+        });
     }
 
     @Override

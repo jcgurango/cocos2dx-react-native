@@ -8,5 +8,8 @@
   "devDependencies": {
     "react": "16.8.0",
     "react-native": "^0.63.3"
+  },
+  "dependencies": {
+    "random-string": "^0.2.0"
   }
 }
